@@ -1,0 +1,13 @@
+@startuml
+    title sdbi
+    sdbi -> KubernetesCluster: GET v1/namespaces/{NAMESPACE}/pods?labelSelector=tier=builds
+    sdbi <- KubernetesCluster: Build pod list
+    group concurrent processing
+        sdbi -> ScrewdriverAPI: GET /v4/builds/{ID}
+        sdbi <- ScrewdriverAPI: Build info
+        sdbi -> ScrewdriverAPI: GET /v4/jobs/{ID}
+        sdbi <- ScrewdriverAPI: Job info
+        sdbi -> ScrewdriverAPI: GET /v4/pipelines/{ID}
+        sdbi <- ScrewdriverAPI: Pipeline info
+    end
+@enduml
