@@ -167,3 +167,17 @@ func (conf *Config) Delete(configName string) error {
 
 	return nil
 }
+
+func (conf *Config) Use(configName string) error {
+	if _, ok := conf.Config[configName]; !ok {
+		return fmt.Errorf("%s config dose not exist in %s", configName, configFileName)
+	}
+	conf.CurrentConfName = configName
+
+	err := saveConfs(conf)
+	if err != nil {
+		return fmt.Errorf("failed to save: %w", err)
+	}
+
+	return nil
+}
