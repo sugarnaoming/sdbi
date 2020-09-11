@@ -122,3 +122,25 @@ func saveConfs(newConf *Config) error {
 
 	return nil
 }
+
+func (conf *Config) Delete(configName string) error {
+	_, ok := conf.Config[configName]
+	if !ok {
+		return fmt.Errorf("can not find %s from config.yaml", configName)
+	}
+	if 1 >= len(conf.Config) {
+		return fmt.Errorf("failed to delete: can not delete all configs")
+	}
+
+	if conf.CurrentConfName == configName {
+		conf.CurrentConfName = ""
+	}
+	delete(conf.Config, configName)
+
+	err := saveConfs(conf)
+	if err != nil {
+		return fmt.Errorf("failed to save config: %w", err)
+	}
+
+	return nil
+}
