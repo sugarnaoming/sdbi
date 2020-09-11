@@ -22,4 +22,5 @@ func Execute() error {
 func init() {
 	// Add this below in function when new command added
 	// e.g. rootCmd.AddCommand(COMMAND_NAME)
+	rootCmd.AddCommand(configCmd)
 }

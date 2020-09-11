@@ -1,6 +1,8 @@
 # sdbi
 ## Change Log
 - 30/04/2020 delete -all option from `config current` and `config view`
+- 21/08/2020 update -a option from `config set`
+- 21/08/2020 delete `config current` sub command
 
 ## Proposal
 ```bash
@@ -12,7 +14,6 @@ sdbi config create TestConfig https://api.screwdriver UserToken   # Create a con
 sdbi config delete SampleConfig                                   # Remove the configuration named "SampleConfig".
 sdbi config use TestConfig                                        # Set the configuration named "TestConfig" to the current configuration.
 sdbi config set TestConfig --api-url https://api.sd               # Changes the configuration of the specified name.
-sdbi config current                                               # View the current config.
 sdbi config view                                                  # View the all config.
 ```
 
@@ -45,7 +46,7 @@ dummy/yummy fast-eating https:/cd.screwdriver.com/builds/01
 #### Set sub command
 `sdbi config set [ConfigName]`
 ##### option
-- `-u` or `--api-url`
+- `-a` or `--api-url`
 - `-t` or `--token`
 #### Current sub command
 `sdbi config current`
