@@ -123,6 +123,29 @@ func saveConfs(newConf *Config) error {
 	return nil
 }
 
+func (conf *Config) Set(blueprint Blueprint) error {
+	newConf, ok := conf.Config[blueprint.ConfigName]
+	if !ok {
+		return fmt.Errorf("%s config dose not exist in %s", blueprint.ConfigName, configFileName)
+	}
+
+	if blueprint.APIURL != "" {
+		newConf.APIURL = blueprint.APIURL
+	}
+	if blueprint.Token != "" {
+		newConf.UserToken = blueprint.Token
+	}
+
+	conf.Config[blueprint.ConfigName] = newConf
+
+	err := saveConfs(conf)
+	if err != nil {
+		return fmt.Errorf("failed to save config: %w", err)
+	}
+
+	return nil
+}
+
 func (conf *Config) Delete(configName string) error {
 	_, ok := conf.Config[configName]
 	if !ok {
