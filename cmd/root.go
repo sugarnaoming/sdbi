@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
@@ -23,4 +24,5 @@ func init() {
 	// Add this below in function when new command added
 	// e.g. rootCmd.AddCommand(COMMAND_NAME)
 	rootCmd.AddCommand(configCmd)
+	rootCmd.AddCommand(Get)
 }
