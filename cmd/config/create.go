@@ -11,7 +11,7 @@ var Create = &cobra.Command{
 	Use:   "create",
 	Short: "config create",
 	Long:  "config create {config name} {API URL} {token} {UI URL}",
-	Args:  cobra.ExactArgs(3),
+	Args:  cobra.ExactArgs(4),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		conf, err := config.New()
 		if err != nil {
