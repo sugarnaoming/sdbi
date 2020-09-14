@@ -3,10 +3,12 @@
 - 30/04/2020 delete -all option from `config current` and `config view`
 - 21/08/2020 update -a option from `config set`
 - 21/08/2020 delete `config current` sub command
+- 12/09/2020 delete `-n` option from get command
+- 12/09/2020 update `-u` option from config create and config set
 
 ## Proposal
 ```bash
-sdbi get -n "node01 node02"                     # Get information about the build running on node01 and node02.
+sdbi get node01 node02                          # Get information about the build running on node01 and node02.
 sdbi get -i "123456-podname 78901-podname"      # Get information about the build id 123456 and 78901.
 echo "123456-poname 78901-podname" | sdbi get   # Get information about the build id 123456 and 78901. (stdin version)
 
@@ -26,8 +28,7 @@ sdbi config view                                                  # View the all
 
 ### Get build info
 `sdbi get`
-#### options
-- `-n` or `--node` 
+#### options 
 - `-i` or `--id`
 #### output
 ```
@@ -38,7 +39,7 @@ dummy/yummy fast-eating https:/cd.screwdriver.com/builds/01
 
 ### Configuration
 #### Create sub command
-`sdbi config create [ConfigName] [APIURL] [UserToken]`
+`sdbi config create [ConfigName] [APIURL] [UserToken] [UIURL]`
 #### Delete sub command
 `sdbi config delete [ConfigName]`
 #### Use sub command
@@ -48,6 +49,7 @@ dummy/yummy fast-eating https:/cd.screwdriver.com/builds/01
 ##### option
 - `-a` or `--api-url`
 - `-t` or `--token`
+- `-u` or `--ui-url`
 #### Current sub command
 `sdbi config current`
 ##### output
