@@ -9,6 +9,7 @@ import (
 
 var ApiURL string
 var token string
+var UiURL string
 
 var Set = &cobra.Command{
 	Use:     "set",
@@ -31,6 +32,7 @@ var Set = &cobra.Command{
 			ConfigName: args[0],
 			APIURL:     ApiURL,
 			Token:      token,
+			UIURL:      UiURL,
 		}
 
 		err = conf.Set(bp)
@@ -45,4 +47,5 @@ var Set = &cobra.Command{
 func init() {
 	Set.Flags().StringVarP(&ApiURL, "api-url", "a", "", "API URL")
 	Set.Flags().StringVarP(&token, "token", "t", "", "Token")
+	Set.Flags().StringVarP(&UiURL, "ui-url", "u", "", "UI URL")
 }

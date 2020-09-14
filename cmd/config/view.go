@@ -38,6 +38,8 @@ var View = &cobra.Command{
 			rowContents = append(rowContents, contents)
 			contents = d.CreateRowContents("", "", fmt.Sprintf("User Token:\t%s", v.UserToken))
 			rowContents = append(rowContents, contents)
+			contents = d.CreateRowContents("", "", fmt.Sprintf("UI URL:\t%s", v.UIURL))
+			rowContents = append(rowContents, contents)
 		}
 
 		err = d.View(rowContents)

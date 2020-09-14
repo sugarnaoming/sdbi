@@ -10,7 +10,7 @@ import (
 var Create = &cobra.Command{
 	Use:   "create",
 	Short: "config create",
-	Long:  "config create {config name} {API URL} {token}",
+	Long:  "config create {config name} {API URL} {token} {UI URL}",
 	Args:  cobra.ExactArgs(3),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		conf, err := config.New()
@@ -27,6 +27,7 @@ var Create = &cobra.Command{
 			ConfigName: args[0],
 			APIURL:     args[1],
 			Token:      args[2],
+			UIURL:      args[3],
 		}
 
 		err = conf.Create(bp)

@@ -14,9 +14,11 @@
       ConfigA:
           api-url: https://example.com
           user-token: user_token_xxxx
+          ui-url: https://ui-example.com
       ConfigB:
           api-url: https://example.com
           user-token: user_token_zzzz
+          ui-url: https://ui-example.com
   current: ConfigA  
   ```
   - "ConfigA" and "ConfigB" are the names of the user's Config.
