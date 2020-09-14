@@ -14,14 +14,15 @@ const configDirName = "sdbi"
 
 type KeyType uint
 
-type sdSetting struct {
+type SdSetting struct {
 	APIURL    string `yaml:"api-url"`
 	UserToken string `yaml:"user-token"`
+	UIURL     string `yaml:"ui-url"`
 }
 
 // Empty string is available for “CurrentConfName"
 type Config struct {
-	Config          map[string]sdSetting `yaml:"config"`
+	Config          map[string]SdSetting `yaml:"config"`
 	CurrentConfName string               `yaml:"current"`
 	configDirPath   string
 	configFilePath  string
@@ -35,6 +36,7 @@ type Configurator interface {
 type Blueprint struct {
 	APIURL     string
 	Token      string
+	UIURL      string
 	ConfigName string
 }
 
@@ -94,12 +96,13 @@ func (conf *Config) Create(blueprint Blueprint) error {
 			return fmt.Errorf("failed to create config: config name is exist")
 		}
 	} else {
-		conf.Config = make(map[string]sdSetting)
+		conf.Config = make(map[string]SdSetting)
 	}
 
-	conf.Config[blueprint.ConfigName] = sdSetting{
+	conf.Config[blueprint.ConfigName] = SdSetting{
 		APIURL:    blueprint.APIURL,
 		UserToken: blueprint.Token,
+		UIURL:     blueprint.UIURL,
 	}
 
 	err := saveConfs(conf)
@@ -134,6 +137,9 @@ func (conf *Config) Set(blueprint Blueprint) error {
 	}
 	if blueprint.Token != "" {
 		newConf.UserToken = blueprint.Token
+	}
+	if blueprint.UIURL != "" {
+		newConf.UIURL = blueprint.UIURL
 	}
 
 	conf.Config[blueprint.ConfigName] = newConf
@@ -180,4 +186,11 @@ func (conf *Config) Use(configName string) error {
 	}
 
 	return nil
+}
+
+func (conf *Config) CurrentConfig() (SdSetting, error) {
+	if conf.CurrentConfName == "" {
+		return SdSetting{}, fmt.Errorf("config is not used")
+	}
+	return conf.Config[conf.CurrentConfName], nil
 }
