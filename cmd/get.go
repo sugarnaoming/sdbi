@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"path"
 	"sdbi/config"
@@ -79,8 +80,13 @@ var Get = &cobra.Command{
 		d.CreateHeader("Org/Repo", "JobName", "Build URL")
 		var contents []display.RowContents
 		for info := range c {
-			buildURL := path.Join(usedConf.UIURL, "builds", info.buildID)
-			row := d.CreateRowContents(info.pipeline.ScmRepo.Name, info.job.Name, buildURL)
+			u, err := url.Parse(usedConf.UIURL)
+			if err != nil {
+				return err
+			}
+
+			u.Path = path.Join(u.Path, "builds", info.buildID)
+			row := d.CreateRowContents(info.pipeline.ScmRepo.Name, info.job.Name, u.String())
 			contents = append(contents, row)
 		}
 
